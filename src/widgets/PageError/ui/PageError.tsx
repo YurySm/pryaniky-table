@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import cls from './PageError.module.scss';
-import clsx from "clsx";
+import clsx from 'clsx';
 
 interface PageErrorProps {
     className?: string;
