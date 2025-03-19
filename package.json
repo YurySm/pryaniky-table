@@ -21,7 +21,6 @@
     "storybook:build": "storybook build -c ./config/storybook",
     "prepare": "husky"
   },
-  "proxy": "https://test.v5.pryaniky.com",
   "keywords": [],
   "author": "",
   "license": "ISC",
