@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import LoginForm from './LoginForm';
+import { LoginForm } from './LoginForm';
 import { StoreDecorator } from 'shared/config/storybook/decorators/StoreDecorator';
-import { ThemeDecorator } from 'shared/config/storybook/decorators/ThemeDecorator';
-import { Theme } from 'app/providers/ThemeProvider';
 import { StateSchema } from 'app/providers/StoreProvider';
 
 const tmpState: StateSchema = {
@@ -19,13 +17,7 @@ const tmpState: StateSchema = {
 const meta: Meta<typeof LoginForm> = {
     title: 'feature/LoginForm',
     component: LoginForm,
-    // parameters: {
-    //     layout: 'centered',
-    // },
     tags: ['autodocs'],
-    // // argTypes: {
-    // //     backgroundColor: { control: 'color' },
-    // // },
     decorators: [StoreDecorator(tmpState)],
 };
 
@@ -56,8 +48,4 @@ export const IsLoading: Story = {
             },
         }),
     ],
-};
-
-export const Dark: Story = {
-    decorators: [ThemeDecorator(Theme.DARK)],
 };

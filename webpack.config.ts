@@ -12,8 +12,8 @@ export default (env: BuildEnv) => {
     }
 
     const mode = env.mode || 'development';
-    const port = env.port || 3000;
-    const apiUrl = env.apiUrl || 'http://localhost:5000';
+    const port = env.port || 5000;
+    const apiUrl = env.apiUrl || 'https://test.v5.pryaniky.com/ru/data/v3/testmethods/docs/';
 
     const isDev = mode === 'development';
 

@@ -21,6 +21,7 @@
     "storybook:build": "storybook build -c ./config/storybook",
     "prepare": "husky"
   },
+  "proxy": "https://test.v5.pryaniky.com",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -92,6 +93,9 @@
     "webpack-dev-server": "^5.2.0"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.8",
     "@reduxjs/toolkit": "^2.5.1",
     "axios": "^1.7.9",
     "clsx": "^2.1.1",

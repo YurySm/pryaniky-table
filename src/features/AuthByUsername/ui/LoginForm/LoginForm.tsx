@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useCallback } from 'react';
+import { ChangeEvent, useCallback } from 'react';
 import { loginActions, loginReducer } from '../../model/slice/loginSlice';
 import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
 import {
@@ -16,20 +16,18 @@ import {
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import clsx from 'clsx';
 import cls from './LoginForm.module.scss'
+import { Button, Paper, TextField, Typography } from '@mui/material';
 
 
 interface LoginFormProps {
     className?: string;
-    onSuccess: () => void;
 }
 
 const initialReducers: ReducersList = {
     loginForm: loginReducer,
 };
 
-const LoginForm = ({ className, onSuccess }: LoginFormProps) => {
-    const { t } = useTranslation();
-
+export const LoginForm = ({ className }: LoginFormProps) => {
     const dispatch = useAppDispatch();
 
     const username = useAppSelector(getLoginUsername);
@@ -53,36 +51,56 @@ const LoginForm = ({ className, onSuccess }: LoginFormProps) => {
 
     const onLoginClick = useCallback(async () => {
         const res = await dispatch(loginByUsername({ username, password }));
-        if (res.meta.requestStatus === 'fulfilled') {
-            onSuccess();
-        }
-    }, [dispatch, password, username, onSuccess]);
+        // if (res.meta.requestStatus === 'fulfilled') {
+        //     onSuccess();
+        // }
+    }, [dispatch, password, username]);
 
     return (
         <DynamicModuleLoader reducers={ initialReducers }>
             <div className={ clsx(cls.loginForm, {}, [className]) }>
-                <p>Авторизация</p>
+                <Paper
+                    className={ cls.form }
+                    elevation={ 6 }
+                >
+                    {error && (
+                        <p>Вы ввели неверный логин или пароль</p>
+                    )}
 
-                {error && (
-                    <p>Вы ввели неверный логин или пароль</p>
-                )}
-                {/*<Input*/}
-                {/*    onChange={ changeUsername }*/}
-                {/*    autofocus*/}
-                {/*    placeholder={ t('Логин') }*/}
-                {/*    value={ username }*/}
-                {/*/>*/}
-                {/*<Input*/}
-                {/*    onChange={ changePassword }*/}
-                {/*    placeholder={ t('Пароль') }*/}
-                {/*    value={ password }*/}
-                {/*/>*/}
-                {/*<Button disabled={ isLoading } onClick={ onLoginClick }>*/}
-                {/*    {t('Войти')}*/}
-                {/*</Button>*/}
+                    <Typography
+                        variant="h2"
+                        className={ cls.formTitle }
+                    >
+                        Авторизация
+                    </Typography>
+
+                    <TextField
+                        label="Логин"
+                        variant="outlined"
+                        value={ username }
+                        onChange={ (event: ChangeEvent<HTMLInputElement>) => {
+                            changeUsername(event.target.value);
+                        } }
+                    />
+
+                    <TextField
+                        label="Пароль"
+                        variant="outlined"
+                        value={ password }
+                        onChange={ (event: ChangeEvent<HTMLInputElement>) => {
+                            changePassword(event.target.value);
+                        } }
+                    />
+
+                    <Button
+                        disabled={ isLoading }
+                        onClick={ onLoginClick }
+                        variant="contained"
+                    >
+                        Войти
+                    </Button>
+                </Paper>
             </div>
         </DynamicModuleLoader>
     );
 };
-
-export default LoginForm;

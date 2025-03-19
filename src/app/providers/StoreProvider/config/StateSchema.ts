@@ -8,10 +8,12 @@ import {
 } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { NavigateFunction } from 'react-router-dom';
+import { DocsSchema } from 'entities/Docs';
 
 export interface StateSchema {
     user: UserSchema;
     loginForm?: LoginSchema;
+    docs?: DocsSchema
 }
 
 export type StateSchemaKeys = keyof StateSchema;

@@ -16,9 +16,7 @@ export const App = () => {
 
     return (
         <div className={ clsx('app', {}, [theme]) }>
-            <div className={ 'content-page' }>
-                {inited && <AppRouter />}
-            </div>
+            {inited && <AppRouter />}
         </div>
     );
 };

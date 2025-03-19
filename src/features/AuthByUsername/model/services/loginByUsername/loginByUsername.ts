@@ -1,7 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { User, userActions } from 'entities/User';
+import { userActions } from 'entities/User';
 import { USER_LOCAL_STORAGE_KEY } from 'shared/constants/localstorage';
 import { ThunkConfig } from 'app/providers/StoreProvider';
+import {
+    ResponseDataReject,
+    ResponseDataSuccess
+} from '../../types/loginSchema';
 
 interface LoginByUsernameProps {
     username: string;
@@ -9,27 +13,26 @@ interface LoginByUsernameProps {
 }
 
 export const loginByUsername = createAsyncThunk<
-    User,
+    ResponseDataReject | ResponseDataSuccess,
     LoginByUsernameProps,
     ThunkConfig<string>
 >('loginForm/loginByUsername', async (data, thunkAPI) => {
     const { extra, dispatch, rejectWithValue } = thunkAPI;
     try {
-        const response = await extra.api.post<User>('/login', data);
+        const response = await extra.api.post<ResponseDataReject | ResponseDataSuccess>('/login', data);
 
-        if (!response.data) {
-            throw new Error();
+        if (!response.data.data) {
+            throw new Error(response.data.error_text);
         }
 
         localStorage.setItem(
             USER_LOCAL_STORAGE_KEY,
-            JSON.stringify(response.data),
+            JSON.stringify(response.data.data.token),
         );
-        dispatch(userActions.setAuthData(response.data));
+        dispatch(userActions.setAuthData(response.data.data.token));
 
-        // for example
         if(extra?.navigate) {
-            extra.navigate('/profile');
+            extra.navigate('/');
         }
 
         return response.data;
