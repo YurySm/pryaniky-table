@@ -1,31 +1,52 @@
-import { useCallback, useEffect } from 'react';
-import { getDocsList } from 'entities/Docs/model/services/getDocsList/getDocsList';
+import { useEffect } from 'react';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { docsReducer } from 'entities/Docs';
-import { useAppDispatch } from 'app/providers/StoreProvider/config/store';
-
+import { docsReducer, getDocsIsLoading, getDocsItems, getDocsList, } from 'entities/Docs';
+import { useAppDispatch, useAppSelector } from 'app/providers/StoreProvider/config/store';
+import { AppBar, Box, Button, CircularProgress, Toolbar, Typography } from '@mui/material';
+import { DocsTable } from 'features/DocsTable';
 
 const reducers: ReducersList = {
     docs: docsReducer,
 };
 
 const MainPage = () => {
+    const docsItems = useAppSelector(getDocsItems);
+    const isLoading = useAppSelector(getDocsIsLoading);
+
     const dispatch = useAppDispatch();
 
-    const onLoginClick = useCallback(async () => {
-        const res = await dispatch(getDocsList());
-        // if (res.meta.requestStatus === 'fulfilled') {
-        //     onSuccess();
-        // }
-    }, [dispatch]);
-
     useEffect(() => {
-        onLoginClick()
+        dispatch(getDocsList())
     }, [])
 
     return (
         <DynamicModuleLoader reducers={ reducers }>
-            <div>{'Главная'}</div>
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        Главная
+                    </Typography>
+                    <Button
+                        color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
+            {
+                isLoading &&
+                <Box sx={{ width: '100%', padding: 5, display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress />
+                </Box>
+            }
+            {
+                docsItems && docsItems?.length > 0 &&
+                <DocsTable docs={ docsItems }/>
+            }
+            {
+                docsItems && docsItems?.length === 0 &&
+                <Typography variant="h6">
+                    Список пуст
+                </Typography>
+            }
+
         </DynamicModuleLoader>
     )
 };

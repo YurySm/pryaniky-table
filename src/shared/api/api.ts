@@ -4,7 +4,6 @@ import { USER_LOCAL_STORAGE_KEY } from 'shared/constants/localstorage';
 export const $api = axios.create({
     baseURL: __API__,
     headers: {
-        Accept: '*/*',
-        'x-auth': localStorage.getItem(USER_LOCAL_STORAGE_KEY) || '',
+        'x-auth': JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY) || '') ,
     },
 });

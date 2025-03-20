@@ -2,10 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userActions } from 'entities/User';
 import { USER_LOCAL_STORAGE_KEY } from 'shared/constants/localstorage';
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import {
-    ResponseDataReject,
-    ResponseDataSuccess
-} from '../../types/loginSchema';
+import { ResponseDataReject, ResponseDataSuccess } from 'shared/api/api.types';
+import { LoginResponse } from 'features/AuthByUsername/model/types/loginSchema';
 
 interface LoginByUsernameProps {
     username: string;
@@ -13,13 +11,13 @@ interface LoginByUsernameProps {
 }
 
 export const loginByUsername = createAsyncThunk<
-    ResponseDataReject | ResponseDataSuccess,
+    ResponseDataReject | ResponseDataSuccess<LoginResponse>,
     LoginByUsernameProps,
     ThunkConfig<string>
 >('loginForm/loginByUsername', async (data, thunkAPI) => {
     const { extra, dispatch, rejectWithValue } = thunkAPI;
     try {
-        const response = await extra.api.post<ResponseDataReject | ResponseDataSuccess>('/login', data);
+        const response = await extra.api.post<ResponseDataReject | ResponseDataSuccess<LoginResponse>>('/login', data);
 
         if (!response.data.data) {
             throw new Error(response.data.error_text);
@@ -29,9 +27,11 @@ export const loginByUsername = createAsyncThunk<
             USER_LOCAL_STORAGE_KEY,
             JSON.stringify(response.data.data.token),
         );
+
         dispatch(userActions.setAuthData(response.data.data.token));
 
         if(extra?.navigate) {
+            console.log('nav')
             extra.navigate('/');
         }
 
@@ -40,3 +40,4 @@ export const loginByUsername = createAsyncThunk<
         return rejectWithValue('error');
     }
 });
+
