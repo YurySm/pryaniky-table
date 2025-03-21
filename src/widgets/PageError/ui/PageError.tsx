@@ -13,7 +13,7 @@ export const PageError = ({ className }: PageErrorProps) => {
         location.reload();
     };
     return (
-        <div className={ clsx(cls.pageError, {}, [className]) }>
+        <div className={ clsx(cls.pageError, className) }>
             <p className={ clsx(cls.title) }>
                 {'Произошла непредвиденная ошибка'}
             </p>

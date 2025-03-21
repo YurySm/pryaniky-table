@@ -4,17 +4,18 @@ import { Box, Button, MenuItem, Modal, Typography } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import { modalStyle } from '../../model/lib/modalStyle';
 import { useAppDispatch } from 'app/providers/StoreProvider/config/store';
-import { deleteDocsItem } from 'entities/Docs';
+import { deleteDocsItem, DocsResponseItem } from 'entities/Docs';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface DocsTableDeleteRowProps {
     className?: string;
-    docId: string
+    doc: DocsResponseItem
 }
 
 export const DocsTableDeleteRow = (props: DocsTableDeleteRowProps) => {
     const {
         className,
-        docId
+        doc
     } = props
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -22,11 +23,8 @@ export const DocsTableDeleteRow = (props: DocsTableDeleteRowProps) => {
     const dispatch = useAppDispatch();
 
     const handleDeleteDocsItem = useCallback(() => {
-        dispatch(deleteDocsItem(docId))
+        dispatch(deleteDocsItem(doc.id))
     }, [dispatch])
-
-    useEffect(() => {
-    }, [])
 
     const handleClose = useCallback(() => {
         setIsOpen(false)
@@ -37,8 +35,13 @@ export const DocsTableDeleteRow = (props: DocsTableDeleteRowProps) => {
     }, [setIsOpen])
 
     return (
-        <div className={ clsx(cls.DocsTableDeleteRow, {}, [className]) }>
-            <MenuItem onClick={ handleOpen }>delete</MenuItem>
+        <div className={ clsx(cls.DocsTableDeleteRow, className) }>
+            <MenuItem
+
+                onClick={ handleOpen }>
+                <DeleteIcon/>
+                Удалить
+            </MenuItem>
 
             <Modal
                 open={ isOpen }
@@ -46,10 +49,23 @@ export const DocsTableDeleteRow = (props: DocsTableDeleteRowProps) => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={ modalStyle }>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Box sx={{ ...modalStyle, width: '36vw', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+                    <Typography
+                        variant="h5"
+                        component="h2"
+                        align={ 'center' }
+                    >
                         Удалить?
                     </Typography>
+
+                    <Typography
+                        variant="h6"
+                        component="p"
+                        align={ 'center' }
+                    >
+                        Удалить документ {doc.documentName}?
+                    </Typography>
+
                     <Button
                         variant={ 'contained' }
                         color={ 'error' }

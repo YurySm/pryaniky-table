@@ -1,13 +1,13 @@
 import cls from './PageLoader.module.scss';
 import clsx from 'clsx';
-import { Loader } from 'shared/ui/Loader/Loader';
+import { CircularProgress } from '@mui/material';
 
 interface PageLoaderProps {
     className?: string;
 }
 
 export const PageLoader = ({ className }: PageLoaderProps) => (
-    <div className={ clsx(cls.pageLoader, {}, [className]) }>
-        <Loader />
+    <div className={ clsx(cls.pageLoader, className) }>
+        <CircularProgress />
     </div>
 );

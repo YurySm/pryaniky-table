@@ -16,14 +16,14 @@ const LoginPage = (props: ArticlesPageProps) => {
         className,
     } = props;
     const auth = useAppSelector(getUserAuthData)
-    const location = useLocation();
+    const location = useLocation()
 
     if (auth && location.pathname === '/login') {
-        return <Navigate to={ RoutesPaths.main } replace/>;
+        return <Navigate to={ RoutesPaths.main } replace/>
     }
 
     return (
-        <div className={ clsx(cls.loginPage, {}, [className]) }>
+        <div className={ clsx(cls.loginPage, className) }>
             <LoginForm/>
         </div>
     );

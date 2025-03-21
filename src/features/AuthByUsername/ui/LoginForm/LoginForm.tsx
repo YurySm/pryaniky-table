@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { ChangeEvent, useCallback } from 'react';
 import { loginActions, loginReducer } from '../../model/slice/loginSlice';
 import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
@@ -51,14 +50,11 @@ export const LoginForm = ({ className }: LoginFormProps) => {
 
     const onLoginClick = useCallback(async () => {
         const res = await dispatch(loginByUsername({ username, password }));
-        // if (res.meta.requestStatus === 'fulfilled') {
-        //     onSuccess();
-        // }
     }, [dispatch, password, username]);
 
     return (
         <DynamicModuleLoader reducers={ initialReducers }>
-            <div className={ clsx(cls.loginForm, {}, [className]) }>
+            <div className={ clsx(cls.loginForm, className) }>
                 <Paper
                     className={ cls.form }
                     elevation={ 6 }
@@ -70,6 +66,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
                     <Typography
                         variant="h2"
                         className={ cls.formTitle }
+                        align={ 'center' }
                     >
                         Авторизация
                     </Typography>
@@ -93,7 +90,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
                     />
 
                     <Button
-                        disabled={ isLoading }
+                        disabled={ isLoading || !username || !password }
                         onClick={ onLoginClick }
                         variant="contained"
                     >

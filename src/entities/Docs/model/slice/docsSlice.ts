@@ -43,7 +43,7 @@ export const docsSlice = createSlice({
                         payload.data
                     ]
                 } else {
-                    state.docsItems = [ payload.data]
+                    state.docsItems = [payload.data]
                 }
             }
         });

@@ -11,6 +11,7 @@ import {
     TableRow,
 } from '@mui/material';
 import { DocsTableRow } from '../DocsTableRow/DocsTableRow';
+import { DocsTableAddRow } from 'features/DocsTable/ui/DocsTableAddRow/DocsTableAddRow';
 
 interface DocsTableProps {
     className?: string;
@@ -24,19 +25,19 @@ export const DocsTable = (props: DocsTableProps) => {
     } = props
 
     return (
-        <div className={ clsx(cls.DocsTable, {}, [className]) }>
+        <div className={ clsx(cls.DocsTable, className) }>
             <TableContainer component={ Paper }>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>documentName</TableCell>
-                            <TableCell align="right">documentStatus</TableCell>
-                            <TableCell align="right">documentType</TableCell>
-                            <TableCell align="right">employeeNumber</TableCell>
-                            <TableCell align="right">employeeSigDate</TableCell>
-                            <TableCell align="right">employeeSignatureName</TableCell>
-                            <TableCell align="right">companySigDate</TableCell>
-                            <TableCell align="right">companySignatureName</TableCell>
+                            <TableCell>Название док-та</TableCell>
+                            <TableCell align="right">Статус</TableCell>
+                            <TableCell align="right">Тип</TableCell>
+                            <TableCell align="right">Номер сотрудника</TableCell>
+                            <TableCell align="right">Дата подписи сотрудника</TableCell>
+                            <TableCell align="right">Название подписи сотрудника</TableCell>
+                            <TableCell align="right">Дата подписи компании</TableCell>
+                            <TableCell align="right">Название подписи компании</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -46,6 +47,7 @@ export const DocsTable = (props: DocsTableProps) => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <DocsTableAddRow/>
         </div>
     );
 }
