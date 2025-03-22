@@ -23,8 +23,7 @@ const meta: Meta<typeof DocsTable> = {
     tags: ['autodocs'],
     decorators: [
         StoreDecorator({
-            docs: {
-            }
+            docs: {}
         })
     ]
 };

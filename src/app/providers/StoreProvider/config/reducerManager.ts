@@ -10,6 +10,7 @@ import { UserSchema } from 'entities/User';
 type StateSchemaType = Partial<{
     user: UserSchema | undefined;
     loginForm?: undefined;
+    docs?: undefined;
 }>
 
 export function createReducerManager(

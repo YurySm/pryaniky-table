@@ -32,9 +32,12 @@ export const DocsTableRow = memo(({ doc }: DocsTableRowProps) => {
         <>
             <LocalizationProvider dateAdapter={ AdapterDayjs }>
                 <TableRow
+                    data-testid={ 'tableRow' }
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                    <TableCell component="th" scope="row">
+                    <TableCell
+                        data-testid={ 'documentName' }
+                        component="th" scope="row">
                         {doc.documentName}
                     </TableCell>
 
@@ -50,7 +53,9 @@ export const DocsTableRow = memo(({ doc }: DocsTableRowProps) => {
                         {doc.employeeNumber}
                     </TableCell>
 
-                    <TableCell align="right">
+                    <TableCell
+                        data-testid={ 'employeeSigDate' }
+                        align="right">
                         <span>{(dayjs.utc(doc.employeeSigDate).format('D MMMM YYYY, HH:mm')).toString()}</span>
                     </TableCell>
 
