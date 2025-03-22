@@ -44,6 +44,7 @@ describe('DocsTable', () => {
 
         const tableRow = await screen.findByTestId('tableRow');
         expect(tableRow).toBeInTheDocument();
+        expect(await screen.getByTestId('documentName')).toBeInTheDocument();
         expect(await screen.getByTestId('documentName')).toHaveTextContent('test');
         expect(await screen.getByTestId('employeeSigDate')).toBeInTheDocument();
         expect(await screen.getByTestId('employeeSigDate')).toHaveTextContent((dayjs.utc('2025-03-22T12:16:44.545Z').format('D MMMM YYYY, HH:mm')).toString());
