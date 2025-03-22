@@ -15,7 +15,7 @@ import {
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import clsx from 'clsx';
 import cls from './LoginForm.module.scss'
-import { Button, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Paper, TextField, Typography } from '@mui/material';
 
 
 interface LoginFormProps {
@@ -59,20 +59,31 @@ export const LoginForm = ({ className }: LoginFormProps) => {
                     className={ cls.form }
                     elevation={ 6 }
                 >
-                    {error && (
-                        <p>Вы ввели неверный логин или пароль</p>
-                    )}
-
                     <Typography
                         variant="h2"
-                        className={ cls.formTitle }
                         align={ 'center' }
                     >
                         Авторизация
                     </Typography>
 
+                    <Box sx={{ minHeight: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {
+                            isLoading && <CircularProgress/>
+                        }
+                        {error && (
+                            <Typography
+                                variant="h6"
+                                align={ 'center' }
+                                color="error"
+                            >
+                                Вы ввели неверный логин или пароль
+                            </Typography>
+                        )}
+                    </Box>
+
                     <TextField
                         label="Логин"
+                        placeholder={ 'Введите логин' }
                         variant="outlined"
                         value={ username }
                         onChange={ (event: ChangeEvent<HTMLInputElement>) => {
@@ -82,6 +93,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
 
                     <TextField
                         label="Пароль"
+                        placeholder={ 'Введите пароль' }
                         variant="outlined"
                         value={ password }
                         onChange={ (event: ChangeEvent<HTMLInputElement>) => {

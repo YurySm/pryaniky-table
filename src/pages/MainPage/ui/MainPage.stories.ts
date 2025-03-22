@@ -1,10 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import MainPage from './MainPage';
+import { StoreDecorator } from 'shared/config/storybook/decorators/StoreDecorator';
 
 const meta: Meta<typeof MainPage> = {
     title: 'pages/MainPage',
     component: MainPage,
-    argTypes: {},
+    decorators: [StoreDecorator({
+        user: {
+            authData: 'test'
+        }
+    })]
 };
 
 export default meta;

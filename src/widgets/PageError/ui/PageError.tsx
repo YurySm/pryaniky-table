@@ -1,29 +1,31 @@
-import { useTranslation } from 'react-i18next';
 import cls from './PageError.module.scss';
 import clsx from 'clsx';
+import { Button, Typography } from '@mui/material';
 
 interface PageErrorProps {
     className?: string;
 }
 
 export const PageError = ({ className }: PageErrorProps) => {
-    const { t } = useTranslation();
 
     const reload = () => {
         location.reload();
     };
     return (
         <div className={ clsx(cls.pageError, className) }>
-            <p className={ clsx(cls.title) }>
+            <Typography
+                color={ 'error' }
+                variant="h4">
                 {'Произошла непредвиденная ошибка'}
-            </p>
-            <button
+            </Typography>
+            <Button
+                sx={{ marginTop: 5 }}
                 onClick={ reload }
-                type="button"
-                className={ clsx(cls.btn) }
+                variant={ 'outlined' }
+                size={ 'large' }
             >
                 {'Обновить страницу'}
-            </button>
+            </Button>
         </div>
     );
 };

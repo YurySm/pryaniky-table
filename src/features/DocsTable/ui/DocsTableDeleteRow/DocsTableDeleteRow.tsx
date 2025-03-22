@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import cls from './DocsTableDeleteRow.module.scss'
 import { Box, Button, MenuItem, Modal, Typography } from '@mui/material';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { modalStyle } from '../../model/lib/modalStyle';
 import { useAppDispatch } from 'app/providers/StoreProvider/config/store';
 import { deleteDocsItem, DocsResponseItem } from 'entities/Docs';
@@ -35,7 +35,7 @@ export const DocsTableDeleteRow = (props: DocsTableDeleteRowProps) => {
     }, [setIsOpen])
 
     return (
-        <div className={ clsx(cls.DocsTableDeleteRow, className) }>
+        <div className={ clsx(className) }>
             <MenuItem
                 onClick={ handleOpen }>
                 <DeleteIcon/>
