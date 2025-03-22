@@ -3,9 +3,9 @@ run-name: Testing GitHub Actions 🚀
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   Explore-GitHub-Actions:
