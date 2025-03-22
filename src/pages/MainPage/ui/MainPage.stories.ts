@@ -8,6 +8,9 @@ const meta: Meta<typeof MainPage> = {
     decorators: [StoreDecorator({
         user: {
             authData: 'test'
+        },
+        docs: {
+            docsItems: []
         }
     })]
 };

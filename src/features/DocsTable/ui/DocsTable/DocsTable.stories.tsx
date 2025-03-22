@@ -20,13 +20,10 @@ const docs: DocsResponseItem[] = [
 const meta: Meta<typeof DocsTable> = {
     title: 'feature/DocsTable',
     component: DocsTable,
-    args: {
-        docs
-    },
+    tags: ['autodocs'],
     decorators: [
         StoreDecorator({
             docs: {
-                docsItems: docs
             }
         })
     ]
@@ -35,4 +32,31 @@ const meta: Meta<typeof DocsTable> = {
 export default meta;
 type Story = StoryObj<typeof DocsTable>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+    decorators: [
+        StoreDecorator({
+            docs: {
+                docsItems: docs,
+                isLoading: false,
+            }
+        })
+    ]
+};
+export const isLoading: Story = {
+    decorators: [
+        StoreDecorator({
+            docs: {
+                isLoading: true,
+            }
+        })
+    ]
+};
+export const isError: Story = {
+    decorators: [
+        StoreDecorator({
+            docs: {
+                error: 'error',
+            }
+        })
+    ]
+};

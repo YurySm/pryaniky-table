@@ -13,24 +13,46 @@ const doc: DocsResponseItem = {
     employeeNumber: 'test',
     employeeSigDate: '2025-03-22T12:16:44.545Z',
     employeeSignatureName: 'test',
-}
+};
 
 const meta: Meta<typeof DocsTableDeleteRow> = {
     title: 'feature/DocsTableDeleteRow',
     component: DocsTableDeleteRow,
     args: {
-        doc
+        doc,
     },
-    decorators: [
-        StoreDecorator({
-            docs: {
-                docsItems: []
-            }
-        })
-    ]
 };
 
 export default meta;
 type Story = StoryObj<typeof DocsTableDeleteRow>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+    decorators: [
+        StoreDecorator({
+            docs: {
+                docsItems: [],
+            },
+        }),
+    ],
+};
+export const IsLoading: Story = {
+    decorators: [
+        StoreDecorator({
+            docs: {
+                docsItems: [],
+                isLoading: true,
+            },
+        }),
+    ],
+};
+
+export const IsError: Story = {
+    decorators: [
+        StoreDecorator({
+            docs: {
+                docsItems: [],
+                error: 'error',
+            },
+        }),
+    ],
+};

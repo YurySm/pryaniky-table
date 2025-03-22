@@ -1,9 +1,9 @@
 import clsx from 'clsx';
-import { Box, Button, MenuItem, Modal, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, MenuItem, Modal, Typography } from '@mui/material';
 import { useCallback, useState } from 'react';
 import { modalStyle } from '../../model/lib/modalStyle';
-import { useAppDispatch } from 'app/providers/StoreProvider/config/store';
-import { deleteDocsItem, DocsResponseItem } from 'entities/Docs';
+import { useAppDispatch, useAppSelector } from 'app/providers/StoreProvider/config/store';
+import { deleteDocsItem, DocsResponseItem, getDocsErrors, getDocsIsLoading } from 'entities/Docs';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 interface DocsTableDeleteRowProps {
@@ -18,6 +18,8 @@ export const DocsTableDeleteRow = (props: DocsTableDeleteRowProps) => {
     } = props
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
+    const error = useAppSelector(getDocsErrors);
+    const isLoading = useAppSelector(getDocsIsLoading);
 
     const dispatch = useAppDispatch();
 
@@ -50,19 +52,27 @@ export const DocsTableDeleteRow = (props: DocsTableDeleteRowProps) => {
                 <Box sx={{ ...modalStyle, width: '36vw', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
                     <Typography
                         variant="h5"
-                        component="h2"
-                        align={ 'center' }
-                    >
-                        Удалить?
-                    </Typography>
-
-                    <Typography
-                        variant="h6"
                         component="p"
                         align={ 'center' }
                     >
                         Удалить документ {doc.documentName}?
                     </Typography>
+                    
+                    <Box sx={{ minHeight: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {
+                            isLoading && <CircularProgress/>
+                        }
+                        {
+                            error && (
+                                <Typography
+                                    variant="h6"
+                                    align={ 'center' }
+                                    color="error"
+                                >
+                                    Что-то пошло не так
+                                </Typography>
+                            )}
+                    </Box>
 
                     <Button
                         variant={ 'contained' }
