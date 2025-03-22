@@ -49,7 +49,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
     );
 
     const onLoginClick = useCallback(async () => {
-        const res = await dispatch(loginByUsername({ username, password }));
+        await dispatch(loginByUsername({ username, password }));
     }, [dispatch, password, username]);
 
     return (

@@ -57,7 +57,7 @@ export const DocsTableEditRow = (props: DocsTableEditRowProps) => {
 
     const onReset = useCallback(() => {
         reset(doc)
-    }, [handleEditDocsItem, reset, doc])
+    }, [reset, doc])
 
     useEffect(() => {
         const { unsubscribe } = watch((value) => {
@@ -65,7 +65,7 @@ export const DocsTableEditRow = (props: DocsTableEditRowProps) => {
             setIsChanged(isChanged);
         })
         return () => unsubscribe()
-    }, [watch])
+    }, [doc, watch])
 
     return (
         <div className={ clsx(cls.DocsTableDeleteRow, className) }>

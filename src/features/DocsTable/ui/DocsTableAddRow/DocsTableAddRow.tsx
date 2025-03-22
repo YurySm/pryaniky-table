@@ -71,7 +71,7 @@ export const DocsTableAddRow = (props: DocsTableEditRowProps) => {
 
     const onReset = useCallback(() => {
         reset()
-    }, [handleEditDocsItem, reset])
+    }, [reset])
 
     return (
         <LocalizationProvider dateAdapter={ AdapterDayjs }>

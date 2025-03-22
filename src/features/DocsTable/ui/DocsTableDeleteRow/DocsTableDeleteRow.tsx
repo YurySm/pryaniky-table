@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import cls from './DocsTableDeleteRow.module.scss'
 import { Box, Button, MenuItem, Modal, Typography } from '@mui/material';
 import { useCallback, useState } from 'react';
 import { modalStyle } from '../../model/lib/modalStyle';
@@ -24,7 +23,7 @@ export const DocsTableDeleteRow = (props: DocsTableDeleteRowProps) => {
 
     const handleDeleteDocsItem = useCallback(() => {
         dispatch(deleteDocsItem(doc.id))
-    }, [dispatch])
+    }, [dispatch, doc.id])
 
     const handleClose = useCallback(() => {
         setIsOpen(false)

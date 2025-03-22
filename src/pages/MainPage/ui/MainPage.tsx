@@ -23,7 +23,7 @@ const MainPage = () => {
         if(auth) {
             dispatch(getDocsList())
         }
-    }, [auth])
+    }, [auth, dispatch])
 
     return (
         <DynamicModuleLoader reducers={ reducers }>

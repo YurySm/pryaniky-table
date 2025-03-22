@@ -1,5 +1,3 @@
-import cls from './DocsTable.module.scss'
-import clsx from 'clsx';
 import { DocsResponseItem } from 'entities/Docs';
 import {
     Paper,
@@ -25,7 +23,7 @@ export const DocsTable = (props: DocsTableProps) => {
     } = props
 
     return (
-        <div className={ clsx(cls.DocsTable, className) }>
+        <div className={ className }>
             <TableContainer component={ Paper }>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
