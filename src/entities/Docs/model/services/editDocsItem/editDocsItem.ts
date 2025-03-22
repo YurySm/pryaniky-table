@@ -4,7 +4,7 @@ import { DocsResponseItem } from 'entities/Docs';
 import { ThunkConfig } from 'app/providers/StoreProvider';
 
 export const editDocsItem = createAsyncThunk<
-    ResponseDataReject | ResponseDataSuccess<DocsResponseItem>,  // поправить
+    ResponseDataReject | ResponseDataSuccess<DocsResponseItem>,
     {docId: string, doc: DocsResponseItem},
     ThunkConfig<string>
 >('docs/editDocsItem', async ({ docId, doc }, thunkAPI) => {

@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ResponseDataReject, ResponseDataSuccess } from 'shared/api/api.types';
-import { DocsResponseItem, getDocsList } from 'entities/Docs';
+import { getDocsList } from 'entities/Docs';
 import { ThunkConfig } from 'app/providers/StoreProvider';
 
 export const deleteDocsItem = createAsyncThunk<
-    ResponseDataReject | ResponseDataSuccess<null>,  /// поправить
+    ResponseDataReject | ResponseDataSuccess<null>,
     string,
     ThunkConfig<string>
 >('docs/deleteDocsItem', async (id: string, thunkAPI) => {
@@ -12,6 +12,8 @@ export const deleteDocsItem = createAsyncThunk<
     try {
         const response = await extra.api.post<ResponseDataReject | ResponseDataSuccess<null>>(`userdocs/delete/${id}`);
 
+
+        // Для примера, При обновлении сделано через фильтр в слайсе
         if(response.data.error_code === 0) {
             dispatch(getDocsList())
         }

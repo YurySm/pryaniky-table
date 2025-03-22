@@ -1,5 +1,5 @@
 import { DocsResponseItem } from 'entities/Docs';
-import { MouseEvent, useState } from 'react';
+import { memo, MouseEvent, useState } from 'react';
 import { IconButton, Menu, TableCell, TableRow } from '@mui/material';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { DocsTableDeleteRow } from '../DocsTableDeleteRow/DocsTableDeleteRow';
@@ -17,7 +17,7 @@ interface DocsTableRowProps {
     doc: DocsResponseItem
 }
 
-export const DocsTableRow = ({ doc }: DocsTableRowProps) => {
+export const DocsTableRow = memo(({ doc }: DocsTableRowProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const handleMenu = (event: MouseEvent<HTMLElement>) => {
@@ -101,4 +101,6 @@ export const DocsTableRow = ({ doc }: DocsTableRowProps) => {
             </LocalizationProvider>
         </>
     )
-}
+})
+
+DocsTableRow.displayName = 'DocsTableRow'

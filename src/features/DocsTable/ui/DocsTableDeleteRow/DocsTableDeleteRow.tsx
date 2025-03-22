@@ -37,7 +37,6 @@ export const DocsTableDeleteRow = (props: DocsTableDeleteRowProps) => {
     return (
         <div className={ clsx(cls.DocsTableDeleteRow, className) }>
             <MenuItem
-
                 onClick={ handleOpen }>
                 <DeleteIcon/>
                 Удалить

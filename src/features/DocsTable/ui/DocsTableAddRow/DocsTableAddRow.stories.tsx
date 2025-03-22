@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DocsTableAddRow } from './DocsTableAddRow';
 
 const meta: Meta<typeof DocsTableAddRow> = {
-    title: '_/DocsTableEditRow',
+    title: 'feature/DocsTableAddRow',
     component: DocsTableAddRow,
     argTypes: {},
 };

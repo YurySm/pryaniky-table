@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getDocsList } from '../services/getDocsList/getDocsList';
 import { deleteDocsItem } from '../services/deleteDocsItem/deleteDocsItem';
 import { editDocsItem } from '../services/editDocsItem/editDocsItem';
+import { addDocsItem } from '../services/addDocsItem/addDocsItem';
 
 const initialState: DocsSchema = {
     isLoading: false,
@@ -11,9 +12,7 @@ const initialState: DocsSchema = {
 export const docsSlice = createSlice({
     name: 'docs',
     initialState,
-    reducers: {
-
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getDocsList.pending, (state) => {
             state.isLoading = true;
@@ -48,6 +47,28 @@ export const docsSlice = createSlice({
             }
         });
         builder.addCase(editDocsItem.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        });
+
+        builder.addCase(addDocsItem.pending, (state) => {
+            state.isLoading = true;
+            state.error = undefined;
+        });
+        builder.addCase(addDocsItem.fulfilled, (state, { payload }) => {
+            state.isLoading = false;
+            if(payload.data) {
+                if(state.docsItems) {
+                    state.docsItems = [
+                        ...state.docsItems.filter(item => item.id !== payload.data.id),
+                        payload.data
+                    ]
+                } else {
+                    state.docsItems = [payload.data]
+                }
+            }
+        });
+        builder.addCase(addDocsItem.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
         });

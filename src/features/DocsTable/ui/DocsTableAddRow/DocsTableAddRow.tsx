@@ -9,10 +9,9 @@ import {
     Typography
 } from '@mui/material';
 import { modalStyle } from '../../model/lib/modalStyle';
-import { DocsResponseItem, getDocsIsLoading } from 'entities/Docs';
+import { addDocsItem, DocsResponseItem, getDocsIsLoading } from 'entities/Docs';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'app/providers/StoreProvider/config/store';
-import { addDocsItem } from 'entities/Docs/model/services/addDocsItem/addDocsItem';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
@@ -45,8 +44,8 @@ export const DocsTableAddRow = (props: DocsTableEditRowProps) => {
 
     const dispatch = useAppDispatch();
 
-    const handleEditDocsItem = useCallback((editedDoc: Omit<DocsResponseItem, 'id'>) => {
-        dispatch(addDocsItem(editedDoc))
+    const handleEditDocsItem = useCallback((newDoc: Omit<DocsResponseItem, 'id'>) => {
+        dispatch(addDocsItem(newDoc))
     }, [dispatch])
 
     const {
@@ -54,7 +53,16 @@ export const DocsTableAddRow = (props: DocsTableEditRowProps) => {
         handleSubmit,
         reset
     } = useForm<Omit<DocsResponseItem, 'id'>>({
-        defaultValues: {}
+        defaultValues: {
+            employeeSignatureName: '',
+            employeeSigDate: '',
+            employeeNumber: '',
+            documentType: '',
+            documentStatus: '',
+            companySignatureName: '',
+            companySigDate: '',
+            documentName: ''
+        }
     })
 
     const onSubmit = useCallback((data: Omit<DocsResponseItem, 'id'>) => {
